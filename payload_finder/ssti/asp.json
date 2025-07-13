@@ -1,0 +1,17 @@
+{
+    "category":"ASP check",  
+    "keyword":"asp",
+    "payloads":[
+        {
+            "type":"ASP.NET Razor - Basic Injection",
+            "tech":"asp",
+            "payload":"@(1+2)"
+        },
+        {
+            "type":"ASP.NET Razor - Command Execution",
+            "tech":"asp",
+            "payload":"@{ // c# code }"
+
+        }
+    ]
+}

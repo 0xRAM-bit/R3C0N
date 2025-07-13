@@ -23,43 +23,33 @@ payload_categories = [
     ("upload_bypass", colors["upload_bypass"]),
     ("rce", colors["rce"]),
 ]
-reset = "\033[0m"
-
-payload_categories = [
-    ("xss", colors["xss"]),
-    ("sqli", colors["sqli"]),
-    ("ssti", colors["ssti"]),
-    ("crlf", colors["crlf"]),
-    ("403_bypass", colors["403_bypass"]),
-    ("lfi", colors["lfi"]),
-    ("upload_bypass", colors["upload_bypass"]),
-    ("rce", colors["rce"]),
-]
 
 def get_colored_categories():
     return "\n".join([f"{color}{cat}{reset}" for cat, color in payload_categories])
 
 def load_payload_file(keyword):
-    # Special case for filter_bypass.json in root
     if keyword == "filter_bypass":
         path = "xss/filter_bypass.json"
     elif keyword == "polyglot":
         path = "xss/polyglot_xss.json"
-    elif keyword =="WAF_bypass":
+    elif keyword == "WAF_bypass":
         path = "xss/waf_bypass.json"
     elif keyword == "csp_bypass":
         path = "xss/csp_bypass.json"
     elif keyword == "generic":
         path = "xss/generic.json"
+    #------------------ SQL INjection ----------------------------------------
     elif keyword == "sqli_generic":
         path = "sqli/generic.json"
-    #---------------SQL Injection---------------------------------
     elif keyword == "mysql":
         path = "sqli/mysql.json"
     elif keyword == "postgres":
         path = "sqli/postgres.json"
-    elif keyword == "generic":
-        path = "sqli/generic.json"
+    #------------------ SSTI injection ----------------------------------------
+    elif keyword == "asp":
+        path = "ssti/asp.json"
+    elif keyword == "java":
+        path = "ssti/java.json"
     else:
         path = f"payloads/{keyword}.json"
     try:
@@ -67,21 +57,31 @@ def load_payload_file(keyword):
             data = json.load(f)
             return data["payloads"]
     except FileNotFoundError:
-        #print(f"No payload file found for '{keyword}' (tried: {path})")
         return []
 
 def main():
-    parser = argparse.ArgumentParser()
-    def get_colored_categories():
-        return "\n".join([f"{color}{cat}{reset}" for cat, color in payload_categories])
-    parser.add_argument(
-        '-p','--payload', required=True,
-        help=f"Payload category \n" + get_colored_categories()
+    parser = argparse.ArgumentParser(
+        description="Payload Finder CLI for Web Application Testing"
     )
-    parser.add_argument('-t','--tech', help='Technology or subtype (angularjs, filter_bypass, …)')
+
+    parser.add_argument(
+        '-p', '--payload', required=True, choices=[cat for cat, _ in payload_categories],
+        help=f"Payload category:\n{get_colored_categories()}"
+    )
+
+    parser.add_argument(
+        '-t', '--tech',
+        help=(
+            "Subtype / Technology:\n\n"
+            "For XSS:\n"
+            "  filter_bypass, polyglot, WAF_bypass, csp_bypass, generic\n\n"
+            "\nFor SQLi:\n"
+            "  mysql, postgres, generic, auth_bypass, time_based, polyglot"
+        )
+    )
+
     args = parser.parse_args()
 
-    #-----------------------------------------------------XSS -------------------------------------------------------------
     if args.payload == "xss":
         if args.tech == "filter_bypass":
             payls = load_payload_file("filter_bypass")
@@ -97,10 +97,10 @@ def main():
             payls = load_payload_file(args.tech)
         else:
             payls = load_payload_file("xss")
-    else:
-        payls = load_payload_file(args.payload)
-   #-----------------------------SQL Injection --------------------------------------------------------------------------- 
-    if args.payload == "sqli":
+
+    elif args.payload == "sqli":
+        payls = []
+
         if args.tech == "mysql":
             payls = load_payload_file("mysql")
         elif args.tech == "postgres":
@@ -108,29 +108,40 @@ def main():
         elif args.tech == "generic":
             payls = load_payload_file("sqli_generic")
 
-
-        #---------------For .txt files--------------------------------------------------------------------------------
         if args.tech == "auth_bypass":
             path_sql = "sqli/auth_bypass.txt"
-        if args.tech == "time_based":
+        elif args.tech == "time_based":
             path_sql = "sqli/time_based.txt"
-        if args.tech == "polyglot":
+        elif args.tech == "polyglot":
             path_sql = "sqli/SQLi_Polyglots.txt"
+        else:
+            path_sql = None
+
+        if path_sql:
+            with open(path_sql, "r") as f:
+                data = f.readlines()
+            for i in data:
+                payload = i.strip()
+                if payload:
+                    print(f"\033[92m[{args.tech}] \033[91m[{payload}]\033[0m")
+    #---------------SSTI----------------------------------------
+    elif args.payload == "ssti":
+        if args.tech == "asp":
+            payls = load_payload_file("asp")
+        if args.tech == "java":
+            payls_java = load_payload_file("java")
+            if payls_java:
+                for q in payls_java:
+                    print(f"\033[92m[{q.get('type', '?')}] \033[94m[{q.get('tech', '?')}] \033[91m[{q.get('payload', '?')}]\033[0m")
         
-        with open(path_sql, "r") as f:
-            data = f.readlines()
-        for i in data:
-            payload = i.strip()
-            if payload:
-                print(f"\033[92m[{args.tech}] \033[91m[{payload}]\033[0m")
-    #-------------------------------------------------------------------------------------------------------------------------
+            
 
-    if not payls or len(payls) == 0:
-        #print("No payloads found.")
-        return
+    else:
+        payls = load_payload_file(args.payload)
 
-    for p in payls:
-        print(f"\033[92m[{p.get('type', '?')}] \033[91m[{p.get('payload', '?')}]\033[0m")
+    if payls:
+        for p in payls:
+            print(f"\033[92m[{p.get('type', '?')}] \033[91m[{p.get('payload', '?')}]\033[0m")
 
 if __name__ == "__main__":
     main()

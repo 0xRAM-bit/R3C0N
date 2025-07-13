@@ -1,31 +1,5 @@
 # PostgreSQL Injection
 
-> PostgreSQL SQL injection refers to a type of security vulnerability where attackers exploit improperly sanitized user input to execute unauthorized SQL commands within a PostgreSQL database.
-
-## Summary
-
-* [PostgreSQL Comments](#postgresql-comments)
-* [PostgreSQL Enumeration](#postgresql-enumeration)
-* [PostgreSQL Methodology](#postgresql-methodology)
-* [PostgreSQL Error Based](#postgresql-error-based)
-    * [PostgreSQL XML Helpers](#postgresql-xml-helpers)
-* [PostgreSQL Blind](#postgresql-blind)
-    * [PostgreSQL Blind With Substring Equivalent](#postgresql-blind-with-substring-equivalent)
-* [PostgreSQL Time Based](#postgresql-time-based)
-* [PostgreSQL Out of Band](#postgresql-out-of-band)
-* [PostgreSQL Stacked Query](#postgresql-stacked-query)
-* [PostgreSQL File Manipulation](#postgresql-file-manipulation)
-    * [PostgreSQL File Read](#postgresql-file-read)
-    * [PostgreSQL File Write](#postgresql-file-write)
-* [PostgreSQL Command Execution](#postgresql-command-execution)
-    * [Using COPY TO/FROM PROGRAM](#using-copy-tofrom-program)
-    * [Using libc.so.6](#using-libcso6)
-* [PostgreSQL WAF Bypass](#postgresql-waf-bypass)
-    * [Alternative to Quotes](#alternative-to-quotes)
-* [PostgreSQL Privileges](#postgresql-privileges)
-    * [PostgreSQL List Privileges](#postgresql-list-privileges)
-    * [PostgreSQL Superuser Role](#postgresql-superuser-role)
-* [References](#references)
 
 ## PostgreSQL Comments
 
@@ -278,12 +252,4 @@ SELECT current_setting('is_superuser');
 SELECT usesuper FROM pg_user WHERE usename = CURRENT_USER;
 ```
 
-## References
 
-* [A Penetration Tester's Guide to PostgreSQL - David Hayter - July 22, 2017](https://medium.com/@cryptocracker99/a-penetration-testers-guide-to-postgresql-d78954921ee9)
-* [Advanced PostgreSQL SQL Injection and Filter Bypass Techniques - Leon Juranic - June 17, 2009](https://www.infigo.hr/files/INFIGO-TD-2009-04_PostgreSQL_injection_ENG.pdf)
-* [Authenticated Arbitrary Command Execution on PostgreSQL 9.3 > Latest - GreenWolf - March 20, 2019](https://medium.com/greenwolf-security/authenticated-arbitrary-command-execution-on-postgresql-9-3-latest-cd18945914d5)
-* [Postgres SQL Injection Cheat Sheet - @pentestmonkey - August 23, 2011](http://pentestmonkey.net/cheat-sheet/sql-injection/postgres-sql-injection-cheat-sheet)
-* [PostgreSQL 9.x Remote Command Execution - dionach - October 26, 2017](https://www.dionach.com/blog/postgresql-9-x-remote-command-execution/)
-* [SQL Injection /webApp/oma_conf ctx parameter - Sergey Bobrov (bobrov) - December 8, 2016](https://hackerone.com/reports/181803)
-* [SQL Injection and Postgres - An Adventure to Eventual RCE - Denis Andzakovic - May 5, 2020](https://pulsesecurity.co.nz/articles/postgres-sqli)

