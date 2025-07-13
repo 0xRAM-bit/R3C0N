@@ -14,7 +14,7 @@
 git clone https://github.com/0xRAM-bit/R3C0N.git
 cd R3C0N
 chmod +x setup.sh
-./setup.sh
+bash setup.sh
 source venv/bin/activate
 python3 main.py
 ```
