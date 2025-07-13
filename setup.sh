@@ -39,14 +39,6 @@ sudo mv -f chaos-client /usr/bin/
 sudo mv -f katana /usr/bin/
 echo "[+] All tools successfully planted... I mean installed."
 
-
-echo "[*] Establishing persistence... (setting up Python virtual environment)"
-python3 -m venv venv
-source venv/bin/activate
-
-echo "[*] Deploying additional payloads... (installing Python dependencies)"
-pip install -r requirements.txt
-
 echo "[*] Cleanup traces... done."
 echo "[✔] Setup completed."
 echo "[*] To activate the venv later: source venv/bin/activate"

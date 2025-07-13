@@ -133,7 +133,7 @@ def main():
             if result["code"] == 0:
                 print(f"\r[✔] Done: {task_name}                ")
             else:
-                print(f"\r[✘] Failed: {task_name}              ")
+                print(f"\r{task_name}              ")
         return result["code"]
 
     if args.command == "portscan":

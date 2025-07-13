@@ -12,7 +12,7 @@ def run_nmap(target):
     sorted_rows = sorted(csv_reader, key=lambda row: int(row['port']) if row['port'].isdigit() else 0)
 
     console = Console()
-    table = Table(title="📡 Nmap Scan Results", show_lines=True)
+    table = Table(title="Nmap Scan Results", show_lines=True)
     table.add_column("Port", style="bold yellow", justify="right")
     table.add_column("Host", style="cyan")
     table.add_column("Hostname", style="cyan")

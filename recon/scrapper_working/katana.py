@@ -54,7 +54,7 @@ class Katana:
             print(f"An unexpected error occurred: {e}")
             exit(1)
 
-        cmd = f"katana -list {self.filename} -o crawled_subs/katan.txt"
+        cmd = f"katana -list {self.filename} -o crawled_subs/{self.filename}.txt"
 
         try:
             subprocess.run(cmd, check=True, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
