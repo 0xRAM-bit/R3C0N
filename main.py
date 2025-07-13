@@ -18,6 +18,11 @@ def main():
         help="Target host or IP address to scan"
     )
 
+    payload_parser = subparsers.add_parser(
+        "find_payload",
+        help="Find payloads"
+    )
+
     # Subparser: Directory Brute-Forcing
     dir_parser = subparsers.add_parser(
         "dir",
@@ -52,7 +57,28 @@ def main():
 
     # Katana Scraper
     katana_parser = subparsers.add_parser("crawl", help="Crawl subdomains")
-    katana_parser.add_argument("-f", "--file", required=True, help="File with subdomains")
+    katana_parser.add_argument("-f", "--file", required=True, help="File with subdomains or single url")
+
+    payload_parser.add_argument(
+        "-p", "--payload",
+        required=True,
+        help="Payload category: \033[94mssti, xss, sqli, crlf, 403_bypass, upload_bypass\033[0m"
+    )
+    payload_parser.add_argument(
+            '-t', '--tech',
+            help=(
+                "Subtype / Technology:\n\n"
+                "For \033[91mxss\033[0m:\n"
+                "  \033[92m{filter_bypass, polyglot, WAF_bypass, csp_bypass, generic}\033[0m\n\n"
+                "\nFor \033[91msqli\033[0m:\n"
+                "  \033[92m{mysql, postgres, generic, auth_bypass, time_based, polyglot}\033[0m\n\n"
+                "For \033[91mssti\033[0m:\n"
+                "  \033[92m{asp, java, javascript, php, python}\033[0m\n\n"
+                "use one by one"
+            )
+    )
+
+
 
 
     if len(sys.argv) == 1:
@@ -91,34 +117,60 @@ def main():
         return result["code"]
 
     if args.command == "portscan":
-        #print(f"Scanning {args.target} with nmap...")
         from nmap_scanner.nmap_scanner import run_nmap
         spinner("Portscan", f"Running nmap on {args.target}", run_nmap, args.target)
 
     elif args.command == "dir":
-        #print(f" Starting directory fuzz on {args.url}...")
-        from ffuf.ffuf_brute import FFUF
-        ffuf = FFUF()
-        spinner("Directory Fuzz", f"Running ffuf on {args.url}", ffuf.run_ffuf, args.url, args.wordlist, args.others)
+        from ffuf.ffuf_brute import run_ffuf
+        spinner("Directory Fuzz", f"Running dir on {args.url}",run_ffuf, args.url, args.wordlist, args.others)
 
     elif args.command == "advrecon":
-        #print(f"[+] Running advanced subdomain enumeration on {args.domain}...")
         from recon.Advance_recon.adv_subs_scrp import Adv_Subs
         adv_subs = Adv_Subs(args.domain, args.api)
         spinner("Advanced Subdomain Enumeration", f"Running advanced subdomain enumeration on {args.domain}", adv_subs.run_adv_subs)
 
     elif args.command == "paramfinder":
-        #print(f"[+] Finding parameters of type '{args.param}' in '{args.file}'...")
         from recon.intersting_parms_finder.parms_finder import ParmsFinder
         finder = ParmsFinder(args.param, args.file)
         spinner("Parameter Finder", f"Finding parameters in {args.file}", finder.find_parms)
 
     elif args.command == "crawl":
-        #print(f"[+] Scraping subdomains from '{args.file}' with Katana...")
         from recon.scrapper_working.katana import Katana
         katana = Katana(args.file)
         spinner("CRAWL", f"Running crawl on {args.file}", katana.run_katana)
+    elif args.command == "find_payload":
+        from payload_finder import SSTI, XSS, SQLI, Bypass_403_401, CRLF_INJECTION
 
+        if args.payload == "ssti":
+            s = SSTI()
+            if args.tech:
+                s.show_payload(args.tech)
+            else:
+                print("Please specify the technology for SSTI: asp, java, javascript, php, python")
+
+        elif args.payload == "xss":
+            x = XSS()
+            if args.tech:
+                x.show_payload(args.tech)
+            else:
+                print("Please specify the technology for XSS: filter_bypass, polyglot, WAF_bypass, csp_bypass, generic")
+
+        elif args.payload == "sqli":
+            s = SQLI()
+            if args.tech:
+                s.show_payload(args.tech)
+            else:
+                print("Please specify the technology for SQLI: mysql, postgres, generic, auth_bypass, time_based, polyglot")
+        elif args.payload == "403_bypass":
+            bypass_403_401 = Bypass_403_401()
+            bypass_403_401.show_payload()
+        elif args.payload == "upload_bypass":
+            print("\033[91m[Please go throught this website for file upload bypass tricks] \n\033[92m[https://book.hacktricks.wiki/en/pentesting-web/file-upload/index.html]\033[0m")
+        elif args.payload == "crlf":
+            crlf_i = CRLF_INJECTION()
+            crlf_i.show_payload()
+        else:
+            print("please specify the right payload type")
     else:
         parser.print_help()
 

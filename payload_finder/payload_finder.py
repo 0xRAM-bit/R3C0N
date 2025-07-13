@@ -1,4 +1,7 @@
 import json
+import os
+
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class SSTI:
     def __init__(self):
@@ -19,7 +22,7 @@ class SSTI:
             print("please specify the right technology for SSTI: asp, java")
             return
         
-        path = tech_map[tech]
+        path = os.path.join(_BASE_DIR, tech_map[tech])
         try:
             payls = self._open_json_file(path)
             for p in payls["payloads"]:
@@ -51,7 +54,7 @@ class XSS:
             print(f"Please specify the right technology for XSS.")
             return
         
-        path = tech_map[tech]
+        path = os.path.join(_BASE_DIR, tech_map[tech])
         try:
             data = self._open_json(path)
             for p in data.get("payloads", []):
@@ -84,7 +87,7 @@ class SQLI:
         }
 
         if tech in json_tech_map:
-            path = json_tech_map[tech]
+            path = os.path.join(_BASE_DIR, json_tech_map[tech])
             try:
                 data = self._open_json(path)
                 for p in data.get("payloads", []):
@@ -93,7 +96,7 @@ class SQLI:
                 print(f"Payload file not found: {path}")
 
         elif tech in txt_tech_map:
-            path = txt_tech_map[tech]
+            path = os.path.join(_BASE_DIR, txt_tech_map[tech])
             try:
                 lines = self._open_txt(path)
                 for line in lines:
@@ -120,7 +123,7 @@ class Bypass_403_401():
             print("please specify the right technology")
             return
         
-        path = tech_map[tech]
+        path = os.path.join(_BASE_DIR, tech_map[tech])
         try:
             payls = self._open_json(path)
             for p in payls["payloads"]:
@@ -140,7 +143,7 @@ class CRLF_INJECTION():
             return f.readlines()
         
     def show_payload(self):
-        path = "crlf/crlf.txt"
+        path = os.path.join(_BASE_DIR, "crlf/crlf.txt")
         lines = self._open_txt(path)
         for line in lines:
             payload = line.strip()

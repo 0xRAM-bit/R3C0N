@@ -1,5 +1,5 @@
 import argparse
-from payload_finder import SSTI, XSS, SQLI, Bypass_403_401, CRLF_INJECTION
+from .payload_finder import SSTI, XSS, SQLI, Bypass_403_401, CRLF_INJECTION
 
 parser = argparse.ArgumentParser(
         description="Payload Finder CLI for Web Application Testing"
