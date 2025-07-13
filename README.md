@@ -20,5 +20,5 @@ python3 main.py
 ```
 👨‍💻 Author
 
-    🕶️ 0xRAM-bit
-    💻 Offensive Security & Automation Enthusiast
+   # 🕶️ 0xRAM-bit
+   ## 💻 Offensive Security & Automation Enthusiast
