@@ -3,7 +3,7 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Ultimate CTF Tool: A collection of tools for CTF players."
+        description="R3C0N pocket tool"
     )
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
@@ -21,6 +21,11 @@ def main():
     payload_parser = subparsers.add_parser(
         "find_payload",
         help="Find payloads"
+    )
+
+    rev_parser = subparsers.add_parser(
+        "rev_gen",
+        help="Generate reverse shell payload"
     )
 
     # Subparser: Directory Brute-Forcing
@@ -55,7 +60,7 @@ def main():
     param_parser.add_argument("-p", "--param", required=True, help="Parameter set to search for (e.g. xss, sql, ssti, rce, lfi, idor, interesting, js)")
     param_parser.add_argument("-f", "--file", required=True, help="File to search in")
 
-    # Katana Scraper
+    #Scraper
     katana_parser = subparsers.add_parser("crawl", help="Crawl subdomains")
     katana_parser.add_argument("-f", "--file", required=True, help="File with subdomains or single url")
 
@@ -78,9 +83,24 @@ def main():
             )
     )
 
-
-
-
+    rev_parser.add_argument(
+        '-i', '--ip',
+        required=True,
+        help="Enter ip or domain to which the connection should be recived"
+    )
+    rev_parser.add_argument(
+        '-p', '--port',
+        required=True,
+        help="Port number"
+    )
+    rev_parser.add_argument(
+        "-t", "--type",
+        required=True,
+        help=(
+            "Payload Type:\n"
+            "python | php | bash | nc | perl | ruby | go | powershell | javascript"
+        )
+    )
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -138,6 +158,11 @@ def main():
         from recon.scrapper_working.katana import Katana
         katana = Katana(args.file)
         spinner("CRAWL", f"Running crawl on {args.file}", katana.run_katana)
+    elif args.command == "rev_gen":
+        from rev_gen.rev_gen import ReverseShellGenerator
+        rev = ReverseShellGenerator(args.ip, args.port, args.type)
+        print(f"\033[91m[*] Reverse shell payload for {args.type}:\033[0m\n")
+        print(rev.generate())
     elif args.command == "find_payload":
         from payload_finder import SSTI, XSS, SQLI, Bypass_403_401, CRLF_INJECTION
 
