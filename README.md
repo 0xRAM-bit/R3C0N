@@ -8,7 +8,7 @@
 
 ---
 
-## 🛠️ Installation (Copy & Paste Like a Real Hacker)
+##   Installation (Copy & Paste Like a Real Hacker)
 
 ```bash
 git clone https://github.com/0xRAM-bit/R3C0N.git
