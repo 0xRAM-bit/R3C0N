@@ -1,9 +1,9 @@
 <h1 align="center">
-💀 R3C0N 💀
+   R3C0N 
 </h1>
 
 <p align="center">
-⚔️ Offensive Reconnaissance Toolkit for Hackers, Red Teamers & Bug Bounty Hunters ⚔️
+  Offensive Reconnaissance Toolkit for Hackers, Red Teamers & Bug Bounty Hunters 
 </p>
 
 ---
@@ -17,7 +17,7 @@ chmod +x setup.sh
 ./setup.sh
 source venv/bin/activate
 python3 main.py
-
+```
 👨‍💻 Author
 
     🕶️ 0xRAM-bit
